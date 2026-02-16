@@ -52,4 +52,57 @@ console.log(booleanIsLoggedIn3)   // this returns true
 let someNumber = 33
 
 let stringNumber = String(someNumber)
-console.log(typeof(stringNumber)) // number is converted to string
+//console.log(typeof(stringNumber)) // number is converted to string
+
+
+
+// ********************** OPERATIONS ****************************
+
+let value = 3
+let negValue = -value
+//console.log(negValue) // returns -3
+
+//basic operations
+/*
+console.log(2+2)
+console.log(2-2)
+console.log(2*2)
+console.log(2**3)
+console.log(2/3)
+console.log(2%2)
+*/
+
+let str1 = "hello"
+let str2 = " shruti"
+
+let str3 = str1 + str2
+//console.log(str3) // returns hello shruti
+
+//this is where the problem arrives
+
+//console.log("1" + 2)
+//console.log(1 + "2")
+//both returns 12 but what if
+
+//console.log("1" + 2 + 2) //returns 122, it converts everything to string
+//but what if
+
+//console.log(1 + 2 + "2") // adds 1 and 2 which is 3 and then returns 32 by treating both as strings
+
+// overall in js , agar string first h btoh sbhi ko string ki tarah treat kiya jayega
+// and agar string last h toh phle jo operation h wo hojayega aur fir string k sath jod dengey
+
+//*****************some more operations  ******************
+/*
+console.log(+true)
+console.log(+"")
+this is not used in production
+*/
+
+//prefix and postfix operators (js mdn)
+//++a a++ 
+
+//for more study from documentation
+
+
+
