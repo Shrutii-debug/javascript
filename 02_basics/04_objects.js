@@ -115,7 +115,7 @@ const {courseInstructor : instructor} = course
 //console.log(courseInstructor); //here we dont have to write .course everytime
 
 
-console.log(instructor); //kyunki abhi humnr usko destructure krdiya toh hum aur chota naam se use kr skte
+console.log(instructor); //kyunki abhi humne usko destructure krdiya toh hum aur chota naam se use kr skte
 
 // APIS
 // json object hi h bas uska koi naam ni h
