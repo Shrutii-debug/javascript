@@ -38,3 +38,10 @@ console.log(priceToPay);
 
 
 // ye saare array methods sbkuch loops se bhi hoskta h, bas ye better tareeka h krne ka
+
+/*
+Method	What it does	    Output
+filter	Select elements   	Array
+map	    Transform elements	Array
+reduce	Combine elements	Single value
+*/

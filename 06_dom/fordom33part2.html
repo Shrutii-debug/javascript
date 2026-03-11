@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chai aur code</title>
+</head>
+<body style="background-color: #212121; color: #fff;">
+    
+</body>
+
+<script>
+    //we have to create a div element
+    const div = document.createElement('div')
+    console.log(div);
+
+    //adding properties to the div element
+    div.className = "main"
+   // div.id = "myId"
+    div.id = Math.round(Math.random() * 10 + 1)
+    //now these are always useful by default attributes, how can we create cuatom attributes
+    div.setAttribute("title", "generated title") //the first double quotes represent the attribute (key) and the second double quotes represent the content inside it(value)
+    div.style.backgroundColor = "green"
+    div.style.padding = "12px"
+   
+   // div.innerText = "Chai aur code"   //what this does it pehle jaata hai value lata hai aue fir usko overwrite krta h
+    //toh preferred hota h ki createTextNode use karein
+
+    const addText = document.createTextNode("chai aur code")
+    div.appendChild(addText)
+
+
+    //now all of these are getting created but not showing on the webpage because these are being created in memory
+    //we have to attach it to page
+
+    document.body.appendChild(div)
+
+//iss div ko ek function m wrap kr skte h create div 
+//fir usiko bar bar use kr skte h, loop laga skte h, array m colour deke ki aise aise create karo aur divs
+</script>
+</html>

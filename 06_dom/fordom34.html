@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chai aur Code</title>
+</head>
+<body style="background-color: #212121; color: #fff;">
+    <ul class="language">
+        <li>Javascript</li>
+    
+    </ul>
+</body>
+
+<script>
+    function addLanguage(langName){
+       const li =  document.createElement('li')
+       li.innerHTML = `${langName}` //ye pura traverse karega bar bar
+       document.querySelector('.language').appendChild(li)
+
+    }
+
+    addLanguage("python")
+    addLanguage("typescript")
+
+    //ab isme dikkat ye h na ki ye jitne bar func call horha utne bar pura tree traverse horha h
+    //toh optimization issues aati hain, toh ek thoda aur optimized version hai ye: using createTextNode
+
+    function addOptiLanguage(langName){
+        const li =  document.createElement('li');
+        //ab li upar wale func k andar declare hua h toh scope uska wahin h isiliye firse declare krne m koi dikkat nai h
+        //isiliye scopes padhe hain ki jo func k andar h uska scope wahin tak h
+        li.appendChild(document.createTextNode(langName))
+        document.querySelector('.language').appendChild(li)
+
+    }
+    addOptiLanguage("golang")
+//toh better h ye 2nd wala option use krna
+
+//EDITING VALUES
+
+   const secondLang = document.querySelector("li:nth-child(2)")
+    //secondLang.innerHTML = "Mojo" //ye hum use krskte h but wahi h ki ye utna optimized nahi h
+
+    //second approach
+
+    const newli = document.createElement('li')
+    newli.textContent = "Mojo"
+    secondLang.replaceWith(newli)
+
+    //one more example of edit
+
+    const firstLang = document.querySelector("li:first-child")
+    firstLang.outerHTML = '<li>TypeScript</li>'
+
+    //these are all the ways of editing
+
+
+    //REMOVING VALUES
+
+    const lastLang = document.querySelector('li:last-child')
+    lastLang.remove()
+    
+</script>
+</html>
