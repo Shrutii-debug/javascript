@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>html events</title>
+</head>
+<body style="background-color: #414141; color: aliceblue;">
+    <h2>Amazing image</h2>
+    <div >
+        <ul id="images">
+            <li><img width="200px" id="photoshop" src="https://images.pexels.com/photos/3561339/pexels-photo-3561339.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="photoshop"></li>
+            <li><img width="200px" id="japan" src="https://images.pexels.com/photos/3532553/pexels-photo-3532553.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><img width="200px" id="river" src="https://images.pexels.com/photos/3532551/pexels-photo-3532551.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><img width="200px" id="owl" src="https://images.pexels.com/photos/3532552/pexels-photo-3532552.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt="" ></li>
+            <li><img width="200px" id="prayer" src="https://images.pexels.com/photos/2522671/pexels-photo-2522671.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load" alt=""></li>
+            <li><a style="color: aliceblue;" href="https://google.com" id="google">Google</a></li>
+        </ul>
+   </div>
+</body>
+<script>
+    
+    //instead of adding onClick operations on the image in the html code, we will do it here as 
+    //in the previous approach it will be a problem incase of scalable applications
+
+/*
+    document.getElementById('owl').onclick = function(){
+        alert("owl clicked")
+    }
+*/
+    //ab ye approach bhi achi h lekin isme v dikkat aa skta h , ye features kam deta h
+    //we should use event Listeners jo ki sirf onclick functionality nahi, propagation ki ability v deta h
+
+    /*
+
+    document.getElementById('owl').addEventListener('click', function(e){ //e is the event object
+        console.log(e);
+        
+    }, false) //imp question: why this false
+
+    */
+
+    //read about events: type, timestamp, defaultPrevented, target
+    //toElement, srcElement, currentTarget
+    //interview perspective- client position related: clientX, clientY, screenX, screenY
+    //altkey, ctrlkey, shiftkey, keycode
+
+    //other approaches
+    // attach Event()
+    //jQuery - onEventListener
+
+    //event propagation(event capturing, event bubbling) but first lets talk about that true,false 
+    //event bubbling- default false-mostly used
+
+    //event capturing
+
+    /*
+    document.getElementById('iamges').addEventListener('click', function(e){ 
+        console.log("clicked inside the ul");
+        }, false)
+
+    document.getElementById('owl').addEventListener('click', function(e){ 
+        console.log("clicked owl");
+        e.stopPropagation() //explanation neeche h
+        }, false)
+
+    */
+
+    //event propagation is basically bubble neeche se upar jata h
+     //iss case m pehle print hoga clicked owl aur fir clicked inside the ul
+     //toh iss case m agar false hata v de toh v same cheez hoga : bubbling up
+     //false likhne ka zarurat ni hota kyunki by default value false hoti h , i.e, by default bubbling up hoti h
+
+
+     //event capturing
+     //ab agar false k jagah wahan pe true krdete h toh event capturing hota h, 
+     //event capturing jata h top se bottom, isme pehle output aayega clicked inside the ul aur fir owl clicked
+
+
+     //toh use case k hisab se false true hota h
+
+
+     //kayi baar hum chahte h bubbling na ho, inner element alag rehjaye aur outer element v alag rehjaye
+     //yahin pe wo object e kaam aata hai uske pas ek method hota h stop propagation
+     //e.stopPropagation() ye use krne se upar bubble hoke ni jayega, 
+     //agar owl pe use karein ye toh fir output sirf owl clicked aayega, upar ni jayega aur 
+
+     //ab ek aur h preventdefault() 
+     //lets take an example, jaise ki google.com hai toh normally click hone se google.com khul jata h
+     //hum chahte h aisa na ho toh default operation ko prevent karengey hum
+
+     /*
+    document.getElementById('google').addEventListener('click', function(e){
+            e.preventDefault()
+            e.stopPropagation()
+            console.log("google clicked");
+        }, false)
+*/
+
+
+ //ek activity krte h ki jitne v images h, wo click krne se gayab hojaye
+//ekbar m sbke upar event lisenters lagarhe h
+ document.querySelector('#images').addEventListener('click', function(e){
+    //console.log(e.target); //e.target se humko pta chalrha ki wo particular image kahan se arhi
+    console.log(e.target.parentNode); 
+    //iss se target ka parent miljata h
+    //jaise ki iss example m humko sirf image thodi remove krna h, humko pura li remove krna h
+    //warna image toh gayba hojayegi lekin list bullet point wahin rehjayega, wo hum ni chahte
+
+    //ab remove kaise karein
+
+    /*
+    let removeIt = e.target.parentNode
+    removeIt.remove()
+    */
+
+    //iss se sara remove hojayega click krne pe
+
+    //ek aur tareeka h
+
+    //removeIt.parentNode.removeChild(removeIt)
+
+    //isme removeIT se toh humko li milrha tha toh agar uska child rkte toh wahi hota image hatt jata li rehjata
+    //toh uska parent lerhe h jo ki h ul
+    //fir ul ka child li and then usko remove kr rhe h
+
+    // removeIt.remove()
+    //ab isme problem ye h ki agar image pe kara toh theek h lekin agar iamge pe nhi krke, hum google pe click kr rhe h toh ptua ka pura sbkuch hi udd jarha
+    //google list item h, google ka parent ul h, toh parent node m ul aaya , isiliye pura ka pura ul hatt jarha
+    //toh jaise ki kisi li pe click karengey uska parent ul h, toh sara sbakuch hatt jayega
+
+    //toh hum simple if checks laga skte h
+
+    //jaise humne parentNode dekha waise ek aur h tagName
+    console.log(e.target.tagName); //ye return krdeta h tagnames, jaise IMG, LI
+    if(e.target.tagName === 'IMG'){
+        console.log(e.target.id);
+        let removeIt = e.target.parentNode
+        removeIt.remove()
+        
+    }
+    
+
+
+
+    
+    
+ }, false)
+     
+</script>
+</html>
+
