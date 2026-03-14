@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Chai aur Code</h1>
+    <button id="stop">STOP</button>
+</body>
+<script>
+
+const sayShruti = function(){
+        console.log("Shruti");
+}
+const changeText = function(){
+    document.querySelector('h1').
+    innerHTML = "best JS student"
+}
+
+const ChangeMe = setTimeout(changeText, 2000)
+
+document.querySelector('#stop').
+addEventListener('click', function(){
+    clearTimeout(ChangeMe)
+    console.log("STOPPED");
+    
+})
+
+/*
+1. What setTimeout Is
+
+setTimeout is a JavaScript function that schedules a task to run later.
+
+Syntax:
+
+setTimeout(callbackFunction, delay)
+
+Parameters:
+
+Parameter	Meaning
+callbackFunction	function to execute later
+delay	time in milliseconds
+
+Important:
+
+1 second = 1000 milliseconds
+2. Basic Example
+console.log("Start")
+
+setTimeout(function(){
+    console.log("Hello after 2 seconds")
+}, 2000)
+
+console.log("End")
+
+Output:
+
+Start
+End
+Hello after 2 seconds
+
+Explanation:
+
+1️⃣ Start prints immediately
+2️⃣ setTimeout registers a timer
+3️⃣ End prints immediately
+4️⃣ After 2 seconds, the callback runs
+
+So the order becomes:
+
+Start → End → Hello
+3. Arrow Function Version
+setTimeout(() => {
+    console.log("Hello")
+}, 1000)
+
+Runs after 1 second.
+
+4. Passing Arguments to setTimeout
+
+You can pass parameters.
+
+function greet(name){
+    console.log("Hello " + name)
+}
+
+setTimeout(greet, 2000, "Rahul")
+
+Output after 2 seconds:
+
+Hello Rahul
+5. setTimeout Does NOT Block Code
+
+Example:
+
+setTimeout(()=>{
+   console.log("A")
+},0)
+
+console.log("B")
+
+Output:
+
+B
+A
+
+Why?
+
+Because:
+
+setTimeout → Web API
+callback → queue
+event loop → executes later
+
+Even with delay 0 ms, it still runs after the current code finishes.
+
+6. What setTimeout Returns
+
+setTimeout returns a timer ID.
+
+Example:
+
+const timer = setTimeout(()=>{
+   console.log("Hello")
+},3000)
+
+console.log(timer)
+
+Example output:
+
+1
+
+This ID allows us to cancel the timer.
+
+7. clearTimeout
+
+clearTimeout is used to cancel a scheduled timeout.
+
+Syntax:
+
+clearTimeout(timerID)
+8. Example of clearTimeout
+const timer = setTimeout(()=>{
+    console.log("This will not run")
+},3000)
+
+clearTimeout(timer)
+
+Result:
+
+Nothing prints
+
+Because the timer was cleared before execution.
+
+9. Real Example (Cancel Notification)
+const notification = setTimeout(()=>{
+    console.log("New message!")
+},5000)
+
+clearTimeout(notification)
+
+The message will never appear.
+
+10. Real World Example (Button Cancel)
+
+HTML:
+
+<button id="stop">Stop Timer</button>
+
+JavaScript:
+
+const timer = setTimeout(()=>{
+    console.log("Hello after 5 seconds")
+},5000)
+
+document.querySelector("#stop").addEventListener("click", function(){
+    clearTimeout(timer)
+})
+
+If the user clicks Stop, the timer is cancelled.
+
+11. Flow of setTimeout Internally
+
+When JavaScript sees:
+
+setTimeout(callback,2000)
+
+Flow:
+
+Call Stack
+   ↓
+Web API (timer starts)
+   ↓
+After 2s → callback goes to queue
+   ↓
+Event Loop checks stack
+   ↓
+callback executes
+12. Important Interview Points
+setTimeout minimum delay
+Delay is minimum time, not exact time
+
+If the call stack is busy, execution will be later.
+
+Delay is in milliseconds
+1000 ms = 1 second
+clearTimeout cancels timers
+
+Works only if you use the timer ID returned by setTimeout.
+
+13. Quick Comparison
+Function	Purpose
+setTimeout()	run code later
+clearTimeout()	cancel scheduled code
+14. Example Combining Both
+function sayHello(){
+   console.log("Hello")
+}
+
+const timer = setTimeout(sayHello,3000)
+
+clearTimeout(timer)
+
+Output:
+
+(nothing)
+15. Real Use Cases
+
+setTimeout is used for:
+
+delayed messages
+loading animations
+notifications
+debouncing
+retry requests
+
+✅ Simple Summary
+
+setTimeout → schedule code
+clearTimeout → cancel scheduled code
+*/
+
+
+</script>
+</html>
