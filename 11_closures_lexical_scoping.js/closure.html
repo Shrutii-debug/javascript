@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: #313131;">
+    <button id="orange">Orange</button>
+    <button id="green">Green</button>
+
+    <script>//lexical scoping - func k andar ek aur func ya jint v
+    //toh unn sbhi ko outer func ka access milta h
+        function init() {
+            let name = "Mozilla"
+            function displayName(){
+                console.log(name);
+                
+            }
+            displayName()
+        }
+        init()
+/*
+This code is demonstrating JavaScript lexical scope and closures. Let’s break it line by line and understand the intuition. 🚀
+
+function outer(){
+    let username = "hitesh"
+    console.log("OUTER", secret);
+1️⃣ outer() function
+
+A function named outer is created.
+
+Inside it, a variable is declared:
+
+let username = "hitesh"
+
+This variable belongs to the scope of the outer function.
+
+Then:
+
+console.log("OUTER", secret);
+
+❌ Problem here:
+secret is not defined in this scope yet.
+
+JavaScript will search:
+
+Inside outer() → not found
+
+Global scope → not found
+
+➡️ Result: ReferenceError: secret is not defined
+
+So this line itself will crash the program before anything else runs.
+
+Next Part
+function inner(){
+    let secret = "my123"
+    console.log("inner", username);
+}
+2️⃣ inner() function
+
+Inside it:
+
+let secret = "my123"
+
+secret exists only inside inner().
+
+Then:
+
+console.log("inner", username);
+
+This works because of lexical scoping.
+
+JavaScript looks for username:
+
+Inside inner() → not found
+
+Parent scope (outer) → found ✅
+
+So it prints:
+
+inner hitesh
+Next Function
+function innerTwo(){
+    console.log("innerTwo", username);
+    console.log(secret);
+}
+3️⃣ innerTwo() function
+
+First line:
+
+console.log("innerTwo", username);
+
+Works ✅
+Because username is in the outer scope.
+
+Output:
+
+innerTwo hitesh
+
+Second line:
+
+console.log(secret);
+
+❌ Error
+
+secret belongs only to inner().
+
+Scope chain search:
+
+innerTwo → not found
+
+outer → not found
+
+global → not found
+
+➡️ ReferenceError
+
+Function Calls
+inner()
+innerTwo()
+
+So the expected intention was:
+
+1️⃣ run inner
+2️⃣ run innerTwo
+
+But remember earlier:
+
+console.log("OUTER", secret);
+
+This already throws error, so the rest never executes.
+
+Important JavaScript Concept Here
+🔹 Lexical Scope
+
+Inner functions can access variables of their parent function.
+
+outer
+   ↓
+ inner
+
+But parent cannot access child variables.
+
+outer ❌ secret
+innerTwo ❌ secret
+
+Because secret is inside inner().
+
+Visual Diagram
+GLOBAL
+  │
+  └── outer()
+        │ username = "hitesh"
+        │
+        ├── inner()
+        │      secret = "my123"
+        │
+        └── innerTwo()
+
+Access rules:
+
+Variable	inner()	innerTwo()	outer()
+username	✅	✅	✅
+secret	✅	❌	❌
+Correct Version of Code
+
+If you want secret accessible everywhere inside outer:
+
+function outer(){
+    let username = "hitesh"
+    let secret = "my123"
+
+    function inner(){
+        console.log("inner", username);
+    }
+
+    function innerTwo(){
+        console.log("innerTwo", username);
+        console.log(secret);
+    }
+
+    inner()
+    innerTwo()
+}
+
+outer()
+
+Output:
+
+inner hitesh
+innerTwo hitesh
+my123
+*/
+    
+
+//closure
+
+//jab ek function return krte ho, toh sirf wo nhi, pura ka pura scope return hota h uska
+//sirf scope nhi pura ka pura lexical scope return hota h
+
+    
+    </script>
+
+
+    <script>
+        //closure
+    document.getElementById("orange").onclick = function(){
+        document.body.style.backgroundColor = `orange`
+    }
+    document.getElementById("green").onclick = function(){
+        document.body.style.backgroundColor = `green`
+    }   
+
+    function clickHandler(color){
+        //document.body.style.backgroundColor = `${orange}`
+        return function(){
+            document.body.style.backgroundColor = `${color}`
+        }
+    }
+
+document.getElementById('orange').onclick = clickHandler("orange")
+document.getElementById('green').onclick = clickHandler("green")
+
+/*
+1️⃣ First Concept: Lexical Scope (foundation of closures)
+
+Example similar to the video:
+
+function outer(){
+    let username = "hitesh"
+
+    function inner(){
+        console.log(username)
+    }
+
+    inner()
+}
+
+outer()
+What happens?
+
+When inner() runs:
+
+JavaScript looks for username inside inner
+
+Not found
+
+Looks in parent scope (outer)
+
+Finds "hitesh"
+
+Output:
+
+hitesh
+
+This is called lexical scoping.
+
+📌 Meaning:
+A function can access variables from the scope where it was created.
+
+2️⃣ Now the Important Part — Closure
+
+Now consider this example from the explanation style in the video:
+
+function outer(){
+    let username = "hitesh"
+
+    function inner(){
+        console.log(username)
+    }
+
+    return inner
+}
+
+const func = outer()
+func()
+Step-by-step execution
+Step 1
+
+outer() runs
+
+username = "hitesh"
+Step 2
+
+outer() returns the function inner
+
+func = inner
+
+So now:
+
+func → function inner()
+Step 3
+
+Now we execute:
+
+func()
+
+But here is the interesting part 🤯
+
+outer() has already finished executing.
+
+Normally its variables should disappear.
+
+But when inner() runs, it still prints:
+
+hitesh
+3️⃣ Why does this happen?
+
+Because JavaScript forms a closure.
+
+A closure means:
+
+The inner function remembers the variables of its lexical scope even after the outer function has finished executing.
+
+So JavaScript keeps the variables alive in memory.
+
+inner + outer variables = closure
+4️⃣ Memory Visualization (as explained conceptually)
+
+When outer() runs:
+
+outer execution context
+    username = "hitesh"
+
+When inner is returned:
+
+JavaScript stores:
+
+func
+  │
+  ├─ function inner()
+  └─ reference to lexical environment
+        username = "hitesh"
+
+So when func() runs:
+
+console.log(username)
+
+It still finds "hitesh".
+
+5️⃣ Real Definition (same concept from the video)
+
+A closure is:
+
+A function bundled together with its lexical scope.
+
+Meaning:
+
+function + surrounding variables
+6️⃣ Example used to show closure power
+function makeCounter(){
+    let count = 0
+
+    return function(){
+        count++
+        console.log(count)
+    }
+}
+
+const counter1 = makeCounter()
+
+counter1()
+counter1()
+counter1()
+
+Output:
+
+1
+2
+3
+Why?
+
+Because the returned function remembers count.
+
+Even though makeCounter() finished executing.
+
+7️⃣ Why closures are important in real development
+
+Closures are used in:
+
+🔹 Data hiding
+function bankAccount(){
+    let balance = 1000
+
+    return {
+        getBalance(){
+            return balance
+        }
+    }
+}
+
+balance cannot be accessed directly.
+
+🔹 Event handlers
+
+Used heavily in JavaScript DOM events.
+
+🔹 React hooks internally use closures
+
+useState behavior depends on closure concepts.
+
+8️⃣ One-line intuition (exact idea from the video)
+
+Think like this:
+
+A function remembers where it was born.
+
+Even if it executes somewhere else later.
+
+9️⃣ Simple Diagram
+outer()
+   │
+   ├── username = "hitesh"
+   │
+   └── inner()
+           │
+           └── remembers username
+
+That memory link is the closure.
+
+✅ Final Short Definition
+
+A closure is created when:
+
+inner function
++
+access to outer variables
++
+outer function already finished
+
+but the variables still exist in memory.
+*/
+    </script>
+</body>
+</html>
